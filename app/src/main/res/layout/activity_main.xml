@@ -13,10 +13,17 @@
         android:layout_height="60dp"
         tools:layout="@layout/fragment_title" />
 
-    <fragment
-        android:name="com.var.fragment.fragment.ContentFragment"
+    <FrameLayout
+        android:id="@+id/fragment_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/fragment_title"
-        tools:layout="@layout/fragment_content" />
+        android:layout_above="@+id/bottom_bar"
+        android:layout_below="@id/fragment_title" />
+
+    <include
+        android:id="@+id/bottom_bar"
+        layout="@layout/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>
