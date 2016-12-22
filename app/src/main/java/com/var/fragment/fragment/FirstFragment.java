@@ -23,6 +23,10 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
+    public interface IFirstBtnOnClickListener {
+        void onFirstBtnClick();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,11 +39,15 @@ public class FirstFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        SecondFragment secondFragment = new SecondFragment();
+        /*SecondFragment secondFragment = new SecondFragment();
         FragmentManager fm = getFragmentManager();
         FragmentTransaction tx = fm.beginTransaction();
         tx.replace(R.id.fragment_content, secondFragment, "Second");
         tx.addToBackStack(null);
-        tx.commit();
+        tx.commit();*/
+
+        if (getActivity() instanceof IFirstBtnOnClickListener) {
+            ((IFirstBtnOnClickListener) getActivity()).onFirstBtnClick();
+        }
     }
 }

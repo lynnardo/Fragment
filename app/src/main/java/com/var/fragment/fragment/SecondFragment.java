@@ -19,8 +19,18 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     private Button mBtnSecond;
 
+    private ISecondBtnOnClickListener iSecondBtnOnClickListener;
+
     public SecondFragment() {
         // Required empty public constructor
+    }
+
+    public interface ISecondBtnOnClickListener {
+        void onSecondBtnClick();
+    }
+
+    public void setSecondBtnOnClickListener(ISecondBtnOnClickListener iSecondBtnOnClickListener) {
+        this.iSecondBtnOnClickListener = iSecondBtnOnClickListener;
     }
 
     @Override
@@ -35,12 +45,16 @@ public class SecondFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        ThirdFragment thirdFragment = new ThirdFragment();
+        /*ThirdFragment thirdFragment = new ThirdFragment();
         FragmentManager fm = getFragmentManager();
         FragmentTransaction tx = fm.beginTransaction();
         tx.hide(this);
         tx.add(R.id.fragment_content, thirdFragment, "Third");
         tx.addToBackStack(null);
-        tx.commit();
+        tx.commit();*/
+
+        if (iSecondBtnOnClickListener != null) {
+            iSecondBtnOnClickListener.onSecondBtnClick();
+        }
     }
 }

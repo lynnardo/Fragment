@@ -4,48 +4,47 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
-import com.var.fragment.fragment.ContentFragment;
 import com.var.fragment.fragment.FirstFragment;
-import com.var.fragment.fragment.FriendFragment;
+import com.var.fragment.fragment.SecondFragment;
+import com.var.fragment.fragment.ThirdFragment;
 
-public class MainActivity extends Activity implements View.OnClickListener {
+public class MainActivity extends Activity implements FirstFragment.IFirstBtnOnClickListener,
+        SecondFragment.ISecondBtnOnClickListener {
 
-    private Button mBtnWechat;
-    private Button mBtnFriend;
+//    private Button mBtnWechat;
+//    private Button mBtnFriend;
+//
+//    private ContentFragment mWechat;
+//    private FriendFragment mFriend;
 
-    private ContentFragment mWechat;
-    private FriendFragment mFriend;
+    private FirstFragment firstFragment;
+    private SecondFragment secondFragment;
+    private ThirdFragment thirdFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mBtnWechat = (Button) findViewById(R.id.btn_wechat);
+        /*mBtnWechat = (Button) findViewById(R.id.btn_wechat);
         mBtnFriend = (Button) findViewById(R.id.btn_friend);
 
         mBtnWechat.setOnClickListener(this);
         mBtnFriend.setOnClickListener(this);
-
-        FragmentManager fm = getFragmentManager();
-        FragmentTransaction tx = fm.beginTransaction();
-        tx.add(R.id.fragment_content, new FirstFragment(), "First");
-        tx.commit();
-//        setDefaultFragment();
+*/
+        setDefaultFragment();
     }
 
     private void setDefaultFragment() {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
-        mWechat = new ContentFragment();
-        transaction.replace(R.id.fragment_content, mWechat);
+        firstFragment = new FirstFragment();
+        transaction.add(R.id.fragment_content, firstFragment, "First");
         transaction.commit();
     }
 
-    @Override
+    /*@Override
     public void onClick(View v) {
         FragmentManager fm = getFragmentManager();
         FragmentTransaction transaction = fm.beginTransaction();
@@ -65,5 +64,31 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
         }
         transaction.commit();
+    }*/
+
+    @Override
+    public void onFirstBtnClick() {
+        if (secondFragment == null) {
+            secondFragment = new SecondFragment();
+            secondFragment.setSecondBtnOnClickListener(this);
+        }
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction transaction = fm.beginTransaction();
+        transaction.replace(R.id.fragment_content, secondFragment, "Second");
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    @Override
+    public void onSecondBtnClick() {
+        if (thirdFragment == null) {
+            thirdFragment = new ThirdFragment();
+        }
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction tx = fm.beginTransaction();
+        tx.hide(secondFragment);
+        tx.add(R.id.fragment_content, thirdFragment, "Third");
+        tx.addToBackStack(null);
+        tx.commit();
     }
 }
