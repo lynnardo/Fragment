@@ -33,7 +33,15 @@ public class MainActivity extends Activity implements FirstFragment.IFirstBtnOnC
         mBtnWechat.setOnClickListener(this);
         mBtnFriend.setOnClickListener(this);
 */
-        setDefaultFragment();
+//        setDefaultFragment();
+
+        if (savedInstanceState == null) {
+            FragmentManager fm = getFragmentManager();
+            FragmentTransaction transaction = fm.beginTransaction();
+            firstFragment = new FirstFragment();
+            transaction.add(R.id.fragment_content, firstFragment, "First");
+            transaction.commit();
+        }
     }
 
     private void setDefaultFragment() {
