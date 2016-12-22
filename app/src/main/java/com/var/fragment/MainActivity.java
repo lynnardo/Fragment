@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.var.fragment.fragment.ContentFragment;
+import com.var.fragment.fragment.FirstFragment;
 import com.var.fragment.fragment.FriendFragment;
 
 public class MainActivity extends Activity implements View.OnClickListener {
@@ -29,7 +30,11 @@ public class MainActivity extends Activity implements View.OnClickListener {
         mBtnWechat.setOnClickListener(this);
         mBtnFriend.setOnClickListener(this);
 
-        setDefaultFragment();
+        FragmentManager fm = getFragmentManager();
+        FragmentTransaction tx = fm.beginTransaction();
+        tx.add(R.id.fragment_content, new FirstFragment(), "First");
+        tx.commit();
+//        setDefaultFragment();
     }
 
     private void setDefaultFragment() {
